@@ -1,3 +1,2 @@
 # TF-CLIP 
 TF-CLIP: Learning Text-free CLIP for Video-based Person Re-Identification （AAAI2024）
-Code will coming soon.....
