@@ -1,0 +1,200 @@
+2023-04-25 19:14:34,709 transreid INFO: Saving model in the path :logs/mars_vit_clip_reid_newprompt+dense_meanp
+2023-04-25 19:14:34,709 transreid INFO: Namespace(config_file='configs/vit_clipreid.yml', local_rank=0, opts=[])
+2023-04-25 19:14:34,709 transreid INFO: Loaded configuration file configs/vit_clipreid.yml
+2023-04-25 19:14:34,709 transreid INFO: 
+MODEL:
+  PRETRAIN_CHOICE: 'imagenet'
+  METRIC_LOSS_TYPE: 'triplet'
+  IF_LABELSMOOTH: 'on'
+  IF_WITH_CENTER: 'no'
+  NAME: 'ViT-B-16'
+  # NAME: 'RN50'
+  STRIDE_SIZE: [16, 16]
+  ID_LOSS_WEIGHT : 0.25
+  TRIPLET_LOSS_WEIGHT : 1.0
+  I2T_LOSS_WEIGHT : 1.0
+  SIE_CAMERA: True
+  SIE_COE : 1.0
+
+INPUT:
+  SIZE_TRAIN: [256, 128]
+  SIZE_TEST: [256, 128]
+  PROB: 0.5 # random horizontal flip
+  RE_PROB: 0.5 # random erasing
+  PADDING: 10
+  PIXEL_MEAN: [0.5, 0.5, 0.5]
+  PIXEL_STD: [0.5, 0.5, 0.5]
+  SEQ_LEN: 8
+
+DATALOADER:
+  SAMPLER: 'softmax_triplet'
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+
+SOLVER:
+  STAGE1:
+    IMS_PER_BATCH: 64
+    OPTIMIZER_NAME: "Adam"
+    BASE_LR: 0.00035
+    WARMUP_LR_INIT: 0.00001
+    LR_MIN: 1e-6
+    WARMUP_METHOD: 'linear'
+    WEIGHT_DECAY:  1e-4
+    WEIGHT_DECAY_BIAS: 1e-4
+    MAX_EPOCHS: 120
+    CHECKPOINT_PERIOD: 120
+    LOG_PERIOD: 50
+    WARMUP_EPOCHS: 5
+  
+  STAGE2:
+    IMS_PER_BATCH: 16
+    OPTIMIZER_NAME: "Adam"
+    BASE_LR: 0.000005
+    WARMUP_METHOD: 'linear'
+    WARMUP_ITERS: 10
+    WARMUP_FACTOR: 0.1
+    WEIGHT_DECAY:  0.0001
+    WEIGHT_DECAY_BIAS: 0.0001
+    LARGE_FC_LR: True
+    LARGE_Prompt_LR: True
+    MAX_EPOCHS: 80
+    CHECKPOINT_PERIOD: 60
+    LOG_PERIOD: 50
+    EVAL_PERIOD: 2
+    BIAS_LR_FACTOR: 2
+    
+    STEPS: [30, 50, 70]
+    GAMMA: 0.1
+  
+TEST:
+  EVAL: False
+  IMS_PER_BATCH: 1
+  RE_RANKING: False
+  WEIGHT: '/18640539002/CLIP+mars+temporal+pv/4.13+promptv+remporal/logs/mars_vit_clip_reid_newprompt+dense_meanp/best_model.pth.tar'
+  NECK_FEAT: 'before'
+  FEAT_NORM: 'yes'
+
+DATASETS:
+  NAMES: ('mars')
+  ROOT_DIR: ('/18640539002/dataset_cc')
+#  ROOT_DIR: ('/media/ycy/18b21f78-77a1-403a-959e-d65e937da92b/data')
+
+  # NAMES: ('ilidsvidsequence')
+  # ROOT_DIR: ('../data/ilidsvidsequence/')
+  
+  # NAMES: ('lsvid')
+  # ROOT_DIR: ('../data/LSVID')
+
+OUTPUT_DIR: 'logs/mars_vit_clip_reid_newprompt+dense_meanp'
+2023-04-25 19:14:34,710 transreid INFO: Running with config:
+DATALOADER:
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+  SAMPLER: softmax_triplet
+DATASETS:
+  NAMES: mars
+  ROOT_DIR: /18640539002/dataset_cc
+  SEQ_SRD: 4
+  SPLIT: 0
+INPUT:
+  PADDING: 10
+  PIXEL_MEAN: [0.5, 0.5, 0.5]
+  PIXEL_STD: [0.5, 0.5, 0.5]
+  PROB: 0.5
+  RE_PROB: 0.5
+  SAMPLE_STRIDE: 4
+  SEQ_LEN: 8
+  SEQ_SRD: 4
+  SIZE_TEST: [256, 128]
+  SIZE_TRAIN: [256, 128]
+  TEST_FRAMES: 4
+MODEL:
+  ATT_DROP_RATE: 0.0
+  COS_LAYER: False
+  DEVICE: cuda
+  DEVICE_ID: 0
+  DIST_TRAIN: False
+  DROP_OUT: 0.0
+  DROP_PATH: 0.1
+  I2T_LOSS_WEIGHT: 1.0
+  ID_LOSS_TYPE: softmax
+  ID_LOSS_WEIGHT: 0.25
+  IF_LABELSMOOTH: on
+  IF_WITH_CENTER: no
+  LAST_STRIDE: 1
+  METRIC_LOSS_TYPE: triplet
+  NAME: ViT-B-16
+  NECK: bnneck
+  NO_MARGIN: False
+  PRETRAIN_CHOICE: imagenet
+  PRETRAIN_PATH: 
+  SIE_CAMERA: True
+  SIE_COE: 1.0
+  SIE_VIEW: False
+  STRIDE_SIZE: [16, 16]
+  TRANSFORMER_TYPE: None
+  TRIPLET_LOSS_WEIGHT: 1.0
+OUTPUT_DIR: logs/mars_vit_clip_reid_newprompt+dense_meanp
+SOLVER:
+  MARGIN: 0.3
+  SEED: 1234
+  STAGE1:
+    BASE_LR: 0.00035
+    CHECKPOINT_PERIOD: 120
+    COSINE_MARGIN: 0.5
+    COSINE_SCALE: 30
+    EVAL_PERIOD: 10
+    IMS_PER_BATCH: 64
+    LOG_PERIOD: 50
+    LR_MIN: 1e-06
+    MAX_EPOCHS: 120
+    MOMENTUM: 0.9
+    OPTIMIZER_NAME: Adam
+    WARMUP_EPOCHS: 5
+    WARMUP_FACTOR: 0.01
+    WARMUP_ITERS: 500
+    WARMUP_LR_INIT: 1e-05
+    WARMUP_METHOD: linear
+    WEIGHT_DECAY: 0.0001
+    WEIGHT_DECAY_BIAS: 0.0001
+  STAGE2:
+    BASE_LR: 5e-06
+    BIAS_LR_FACTOR: 2
+    CENTER_LOSS_WEIGHT: 0.0005
+    CENTER_LR: 0.5
+    CHECKPOINT_PERIOD: 60
+    COSINE_MARGIN: 0.5
+    COSINE_SCALE: 30
+    EVAL_PERIOD: 2
+    GAMMA: 0.1
+    IMS_PER_BATCH: 16
+    LARGE_FC_LR: True
+    LARGE_Prompt_LR: True
+    LOG_PERIOD: 50
+    LR_MIN: 1.6e-05
+    MAX_EPOCHS: 80
+    MOMENTUM: 0.9
+    OPTIMIZER_NAME: Adam
+    STEPS: (30, 50, 70)
+    WARMUP_EPOCHS: 5
+    WARMUP_FACTOR: 0.1
+    WARMUP_ITERS: 10
+    WARMUP_LR_INIT: 0.01
+    WARMUP_METHOD: linear
+    WEIGHT_DECAY: 0.0001
+    WEIGHT_DECAY_BIAS: 0.0001
+TEST:
+  DIST_MAT: dist_mat.npy
+  EVAL: False
+  FEAT_NORM: yes
+  IMS_PER_BATCH: 1
+  NECK_FEAT: before
+  RE_RANKING: False
+  WEIGHT: /18640539002/CLIP+mars+temporal+pv/4.13+promptv+remporal/logs/mars_vit_clip_reid_newprompt+dense_meanp/best_model.pth.tar
+2023-04-25 19:15:02,231 transreid.test INFO: Enter inferencing
+2023-04-25 19:31:59,103 transreid.test INFO: Validation Results 
+2023-04-25 19:31:59,105 transreid.test INFO: mAP: 89.4%
+2023-04-25 19:31:59,105 transreid.test INFO: CMC curve, Rank-1  :93.0%
+2023-04-25 19:31:59,105 transreid.test INFO: CMC curve, Rank-5  :97.9%
+2023-04-25 19:31:59,105 transreid.test INFO: CMC curve, Rank-10 :98.5%
+2023-04-25 19:31:59,105 transreid.test INFO: CMC curve, Rank-20 :99.0%
