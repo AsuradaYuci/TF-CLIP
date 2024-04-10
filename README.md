@@ -90,6 +90,8 @@ CUDA_VISIBLE_DEVICES=0 python eval-main.py
 This project is based on [CLIP-ReID](https://github.com/Syliz517/CLIP-ReID) and [XCLIP](https://github.com/microsoft/VideoX/tree/master/X-CLIP).
 Thanks for these excellent works.
 
+## :hearts: Concat
+If you have any questions, please feel free to send an email to yuchenyang@mail.dlut.edu.cn or asuradayuci@gmail.com. .^_^.
 
 ## :book: Citation
 If you find TF-CLIP useful for you, please consider citing :mega:
@@ -97,7 +99,10 @@ If you find TF-CLIP useful for you, please consider citing :mega:
 @article{tfclip,
       Title={TF-CLIP: Learning Text-Free CLIP for Video-Based Person Re-identification},
       Author = {Chenyang Yu, Xuehu Liu, Yingquan Wang, Pingping Zhang, Huchuan Lu},
-      Year = {2023},
+      Volume={38},
+      Number={7},
+      Pages = {6764-6772},
+      Year = {2024},
       booktitle= = {AAAI}
 }
 ```
