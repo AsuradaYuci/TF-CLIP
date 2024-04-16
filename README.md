@@ -40,6 +40,9 @@ The temporal information is then further diffused to each token, and finally agg
 <div align=center>
 <img width="90%" src="./assets/result.jpg"/>
 </div>
+*  Pretrained Models
+- [x] MARS : [Model&Code](https://pan.baidu.com/s/1k4MR3w6NPiyA49FAB5aRlQ?pwd=1234) PASSWORD: 1234
+- [x] LSVID : [Model&Code](https://pan.baidu.com/s/1prJcECyiiJsN-3wBRzdMjQ?pwd=1234) PASSWORD: 1234
 
 *  t-SNE Visualization
 <div align=center>
